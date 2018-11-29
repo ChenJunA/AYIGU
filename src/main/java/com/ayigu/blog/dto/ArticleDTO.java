@@ -1,8 +1,13 @@
-package com.ayigu.blog.entity;
+package com.ayigu.blog.dto;
 
 import java.util.Date;
 
-public class Article {
+/**
+ * @Description: 封装文章信息的数据传输对象
+ * @Author: chenjun
+ * @Date: 2018/11/29 16:28
+ */
+public class ArticleDTO {
     /**
      * 文章ID
      */
@@ -48,21 +53,15 @@ public class Article {
      */
     private Boolean delete;
 
-    public Article(Long id, Date gmtCreate, Date gmtModified, String title, String summary, Integer pageView, Long categoryId, Boolean top, Boolean delete) {
-        this.id = id;
-        this.gmtCreate = gmtCreate;
-        this.gmtModified = gmtModified;
-        this.title = title;
-        this.summary = summary;
-        this.pageView = pageView;
-        this.categoryId = categoryId;
-        this.top = top;
-        this.delete = delete;
-    }
+    /**
+     * 文章内容
+     */
+    private String Content;
 
-    public Article() {
-        super();
-    }
+    /**
+     * 文章图片URL
+     */
+    private String pictureUrl;
 
     public Long getId() {
         return id;
@@ -93,7 +92,7 @@ public class Article {
     }
 
     public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+        this.title = title;
     }
 
     public String getSummary() {
@@ -101,7 +100,7 @@ public class Article {
     }
 
     public void setSummary(String summary) {
-        this.summary = summary == null ? null : summary.trim();
+        this.summary = summary;
     }
 
     public Integer getPageView() {
@@ -120,19 +119,52 @@ public class Article {
         this.categoryId = categoryId;
     }
 
-    public Boolean getIsTop() {
+    public Boolean getTop() {
         return top;
     }
 
-    public void setIsTop(Boolean top) {
+    public void setTop(Boolean top) {
         this.top = top;
     }
 
-    public Boolean getIsDelete() {
+    public Boolean getDelete() {
         return delete;
     }
 
-    public void setIsDelete(Boolean delete) {
+    public void setDelete(Boolean delete) {
         this.delete = delete;
+    }
+
+    public String getContent() {
+        return Content;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "ArticleDTO{" +
+                "id=" + id +
+                ", gmtCreate=" + gmtCreate +
+                ", gmtModified=" + gmtModified +
+                ", title='" + title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", pageView=" + pageView +
+                ", categoryId=" + categoryId +
+                ", top=" + top +
+                ", delete=" + delete +
+                ", Content='" + Content + '\'' +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                '}';
     }
 }

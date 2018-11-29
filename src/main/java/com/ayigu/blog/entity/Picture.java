@@ -3,14 +3,29 @@ package com.ayigu.blog.entity;
 import java.util.Date;
 
 public class Picture {
+    /**
+     * 图片ID
+     */
     private Long id;
 
+    /**
+     * 创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 更新时间
+     */
     private Date gmtModified;
 
+    /**
+     * 图片地址
+     */
     private String pictureUrl;
 
+    /**
+     * 对应文章ID
+     */
     private Long articleId;
 
     public Picture(Long id, Date gmtCreate, Date gmtModified, String pictureUrl, Long articleId) {

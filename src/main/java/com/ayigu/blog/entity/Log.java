@@ -3,18 +3,39 @@ package com.ayigu.blog.entity;
 import java.util.Date;
 
 public class Log {
+    /**
+     * 日志ID
+     */
     private Long id;
 
+    /**
+     * 创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 更新时间
+     */
     private Date gmtModified;
 
+    /**
+     * 访问者IP
+     */
     private String ip;
 
+    /**
+     * 请求地址
+     */
     private String url;
 
+    /**
+     * 请求方法
+     */
     private String method;
 
+    /**
+     * 访问者浏览器
+     */
     private String browser;
 
     public Log(Long id, Date gmtCreate, Date gmtModified, String ip, String url, String method, String browser) {

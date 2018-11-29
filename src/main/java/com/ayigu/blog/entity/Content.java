@@ -3,14 +3,29 @@ package com.ayigu.blog.entity;
 import java.util.Date;
 
 public class Content {
+    /**
+     * 文章内容ID
+     */
     private Long id;
 
+    /**
+     * 创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 更新时间
+     */
     private Date gmtModified;
 
+    /**
+     * 对应文章ID
+     */
     private Long articleId;
 
+    /**
+     * 文章内容
+     */
     private String content;
 
     public Content(Long id, Date gmtCreate, Date gmtModified, Long articleId, String content) {

@@ -3,22 +3,49 @@ package com.ayigu.blog.entity;
 import java.util.Date;
 
 public class Comment {
+    /**
+     * 评论ID
+     */
     private Long id;
 
+    /**
+     * 创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 更新时间
+     */
     private Date gmtModified;
 
+    /**
+     * 评论昵称
+     */
     private String name;
 
+    /**
+     * 评论邮箱
+     */
     private String email;
 
+    /**
+     * 评论内容
+     */
     private String content;
 
+    /**
+     * 评论者IP
+     */
     private String ip;
 
+    /**
+     * 评论所属文章ID
+     */
     private Long articleId;
 
+    /**
+     * 是否删除
+     */
     private Boolean delete;
 
     public Comment(Long id, Date gmtCreate, Date gmtModified, String name, String email, String content, String ip, Long articleId, Boolean delete) {

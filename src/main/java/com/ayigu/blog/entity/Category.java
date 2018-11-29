@@ -3,16 +3,34 @@ package com.ayigu.blog.entity;
 import java.util.Date;
 
 public class Category {
+    /**
+     * 分类ID
+     */
     private Long id;
 
+    /**
+     * 创建时间
+     */
     private Date gmtCreate;
 
+    /**
+     * 更新时间
+     */
     private Date gmtModified;
 
+    /**
+     * 分类名称
+     */
     private String name;
 
+    /**
+     * 分类下文章数量
+     */
     private Byte number;
 
+    /**
+     * 是否删除
+     */
     private Boolean delete;
 
     public Category(Long id, Date gmtCreate, Date gmtModified, String name, Byte number, Boolean delete) {

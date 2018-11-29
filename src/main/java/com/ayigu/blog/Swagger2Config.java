@@ -9,6 +9,11 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+/**
+ * @Description: Swagger配置类
+ * @Author: chenjun
+ * @Date: 2018/11/29 16:27
+ */
 @Configuration
 public class Swagger2Config {
     @Bean
@@ -24,8 +29,8 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("阿一古个人博客RESTful APIs")
-                .description("http://www.ayigu.com")
-                .termsOfServiceUrl("http://www.ayigu.com")
+                .description("http://www.阿一古.com")
+                .termsOfServiceUrl("http://www.阿一古.com")
                 .version("1.0")
                 .build();
     }
