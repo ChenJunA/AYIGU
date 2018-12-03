@@ -131,7 +131,8 @@ public class ArticleServiceImpl implements ArticleService {
         ContentExample contentExample = new ContentExample();
         ContentExample.Criteria contentCriteria = contentExample.createCriteria();
         contentCriteria.andArticleIdEqualTo(articleDTO.getId());
-        List<Content> contents = contentMapper.selectByExample(contentExample);
+        //检索text文件时需要使用selectByExampleWithBLOBs
+        List<Content> contents = contentMapper.selectByExampleWithBLOBs(contentExample);
         Content content = contents.get(0);
         articleDTO.setContent(content.getContent());
 

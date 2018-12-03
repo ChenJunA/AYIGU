@@ -84,7 +84,7 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long", paramType = "path")
-    @GetMapping("articles/{categoryId}")
+    @GetMapping("articles/categories/{categoryId}")
     public RespUtil<List<ArticleDTO>> listByCategoryId(@PathVariable Long categoryId){
         List<ArticleDTO> articleDTOS = articleService.listByCategoryId(categoryId);
         return RespUtil.success(articleDTOS);

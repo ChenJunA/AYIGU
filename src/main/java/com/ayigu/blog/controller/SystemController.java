@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 public class SystemController extends BaseController{
     private static String username = "ayigu";
-    private static String password = "123456";
+    private static String password = "12345";
 
     /**
      *登录

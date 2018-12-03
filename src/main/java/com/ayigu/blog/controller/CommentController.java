@@ -54,7 +54,7 @@ public class CommentController extends BaseController {
      */
     @ApiOperation("获取文章评论，留言")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long", paramType = "path")
-    @GetMapping("comment/{articleId}")
+    @GetMapping("comments/{articleId}")
     public RespUtil<List<Comment>> listCommentByArticleId(@PathVariable Long articleId){
         List<Comment> comments = commentService.listCommentByArticleId(articleId);
         return RespUtil.success(comments);
