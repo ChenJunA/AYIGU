@@ -8,11 +8,12 @@ import com.ayigu.blog.mapper.ContentMapper;
 import com.ayigu.blog.mapper.PictureMapper;
 import com.ayigu.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+@Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleMapper articleMapper;

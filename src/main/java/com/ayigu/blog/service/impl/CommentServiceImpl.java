@@ -5,9 +5,11 @@ import com.ayigu.blog.entity.CommentExample;
 import com.ayigu.blog.mapper.CommentMapper;
 import com.ayigu.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentMapper commentMapper;

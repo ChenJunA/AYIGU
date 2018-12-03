@@ -5,9 +5,11 @@ import com.ayigu.blog.entity.LogExample;
 import com.ayigu.blog.mapper.LogMapper;
 import com.ayigu.blog.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SystemServiceImpl implements SystemService {
     @Autowired
     LogMapper logMapper;

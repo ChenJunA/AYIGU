@@ -1,23 +1,28 @@
 package com.ayigu.blog.interceptor;
 
 import com.ayigu.blog.entity.Log;
+import com.ayigu.blog.service.SystemService;
 import com.ayigu.blog.util.BrowserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.util.StringUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 
 /**
  * @Description: 拦截前台请求的拦截器
  * @Author: chenjun
  * @Date: 2018/11/29 16:22
  */
-public class ForeIntetceptor implements HandlerInterceptor {
+public class ForeInterceptor implements HandlerInterceptor {
     @Autowired
+    SystemService systemService;
+
     private Log log = new Log();
 
     @Override
@@ -38,7 +43,17 @@ public class ForeIntetceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
-
+        if(handler instanceof HandlerMethod){
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            Method method = handlerMethod.getMethod();
+            //保存日志信息
+            log.setMethod(method.getName());
+            systemService.insertLog(log);
+        } else {
+            String uri = request.getRequestURI();
+            log.setMethod(uri);
+            systemService.insertLog(log);
+        }
     }
 
     @Override

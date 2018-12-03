@@ -1,5 +1,6 @@
 package com.ayigu.blog.interceptor;
 
+import com.ayigu.blog.entity.User;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,9 +14,24 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2018/11/29 16:22
  */
 public class BackInterceptor implements HandlerInterceptor {
+    private String username = "ayigu";
+    private String password = "12345";
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return false;
+        boolean flag;
+        User user = (User) request.getSession().getAttribute("user");
+        if(user == null){
+            request.getRequestDispatcher(request.getContextPath() + "/error.html").forward(request,response);
+            flag = false;
+        } else {
+            if (username.equals(user.getUsername()) && password.equals(user.getPassword())){
+                flag = true;
+            } else {
+                flag = false;
+            }
+        }
+        return flag;
     }
 
     @Override
