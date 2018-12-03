@@ -16,7 +16,7 @@ public class SystemServiceImpl implements SystemService {
 
     @Override
     public void insertLog(Log log) {
-        logMapper.insert(log);
+        logMapper.insertSelective(log);
     }
 
     @Override

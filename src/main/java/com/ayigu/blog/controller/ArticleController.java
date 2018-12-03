@@ -15,6 +15,7 @@ import java.util.List;
  * @Author: chenjun
  * @Date: 2018/12/3 10:41
  */
+@RestController
 public class ArticleController extends BaseController{
     /**
      * 新增文章
@@ -83,7 +84,7 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long", paramType = "path")
-    @GetMapping("categories/{categoryId}")
+    @GetMapping("articles/{categoryId}")
     public RespUtil<List<ArticleDTO>> listByCategoryId(@PathVariable Long categoryId){
         List<ArticleDTO> articleDTOS = articleService.listByCategoryId(categoryId);
         return RespUtil.success(articleDTOS);

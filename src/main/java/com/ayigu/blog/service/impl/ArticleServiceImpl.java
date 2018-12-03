@@ -34,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setSummary(articleDTO.getSummary());
         article.setCategoryId(articleDTO.getCategoryId());
         article.setIsTop(articleDTO.getTop());
-        articleMapper.insert(article);
+        articleMapper.insertSelective(article);
 
         //获取文章ID
         Long articleId = getLastestArticleId();
@@ -43,13 +43,13 @@ public class ArticleServiceImpl implements ArticleService {
         Content content = new Content();
         content.setContent(articleDTO.getContent());
         content.setArticleId(articleId);
-        contentMapper.insert(content);
+        contentMapper.insertSelective(content);
 
         //数据插入blog_picture
         Picture picture = new Picture();
         picture.setArticleId(articleId);
         picture.setPictureUrl(articleDTO.getPictureUrl());
-        pictureMapper.insert(picture);
+        pictureMapper.insertSelective(picture);
 
         //对应分类下文章数量+1
         Category category = categoryMapper.selectByPrimaryKey(articleDTO.getCategoryId());

@@ -14,6 +14,7 @@ import java.util.List;
  * @Author: chenjun
  * @Date: 2018/12/3 10:43
  */
+@RestController
 public class CategoryController extends BaseController{
     /**
      * 新增文章分类

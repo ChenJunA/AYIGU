@@ -16,7 +16,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void insertComment(Comment comment) {
-        commentMapper.insert(comment);
+        commentMapper.insertSelective(comment);
     }
 
     @Override
