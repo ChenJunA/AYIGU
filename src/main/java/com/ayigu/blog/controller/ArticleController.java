@@ -2,6 +2,7 @@ package com.ayigu.blog.controller;
 
 import com.ayigu.blog.dto.ArticleDTO;
 import com.ayigu.blog.util.MarkdownToHtmlUtil;
+import com.ayigu.blog.util.RespUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,9 +25,9 @@ public class ArticleController extends BaseController{
     @ApiOperation("新增文章")
     @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
     @PostMapping("article")
-    public String insertArticle(@RequestBody ArticleDTO articleDTO){
+    public RespUtil<ArticleDTO> insertArticle(@RequestBody ArticleDTO articleDTO){
         articleService.insetArticle(articleDTO);
-        return null;
+        return RespUtil.success();
     }
 
     /**
@@ -38,9 +39,9 @@ public class ArticleController extends BaseController{
     @ApiOperation("删除文章")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long")
     @DeleteMapping("articles/{articleId}")
-    public String deleteArticle(@PathVariable Long articleId){
+    public RespUtil<ArticleDTO> deleteArticle(@PathVariable Long articleId){
         articleService.deleteArticle(articleId);
-        return null;
+        return RespUtil.success();
     }
 
     /**
@@ -56,10 +57,10 @@ public class ArticleController extends BaseController{
             @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
     })
     @PutMapping("articles/{articleId}")
-    public String updateArticle(@PathVariable Long articleId, @RequestBody ArticleDTO articleDTO){
+    public RespUtil<ArticleDTO> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDTO articleDTO){
         articleDTO.setId(articleId);
         articleService.updateArticle(articleDTO);
-        return null;
+        return RespUtil.success();
     }
 
     /**
@@ -69,8 +70,9 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("获取所有文章")
     @GetMapping("articles")
-    public List<ArticleDTO> listAll(){
-        return articleService.listAll();
+    public RespUtil<List<ArticleDTO>> listAll(){
+        List<ArticleDTO> articleDTOS = articleService.listAll();
+        return RespUtil.success(articleDTOS);
     }
 
     /**
@@ -82,8 +84,10 @@ public class ArticleController extends BaseController{
     @ApiOperation("")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long", paramType = "path")
     @GetMapping("categories/{categoryId}")
-    public List<ArticleDTO> listByCategoryId(@PathVariable Long categoryId){
-        return articleService.listByCategoryId(categoryId);
+    public RespUtil<List<ArticleDTO>> listByCategoryId(@PathVariable Long categoryId){
+        List<ArticleDTO> articleDTOS = articleService.listByCategoryId(categoryId);
+        return RespUtil.success(articleDTOS);
+
     }
 
     /**
@@ -93,8 +97,9 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("获取最新文章")
     @GetMapping("articles/lastest")
-    public List<ArticleDTO> listLastest(){
-        return articleService.listLastest();
+    public RespUtil<List<ArticleDTO>> listLastest(){
+        List<ArticleDTO> articleDTOS = articleService.listLastest();
+        return RespUtil.success(articleDTOS);
     }
 
     /**
@@ -106,10 +111,10 @@ public class ArticleController extends BaseController{
     @ApiOperation("根据文章ID获取文章详细信息")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long", paramType = "path")
     @GetMapping("articles/{articleId}")
-    public ArticleDTO getArticleDtoById(@PathVariable Long articleId){
+    public RespUtil<ArticleDTO> getArticleDtoById(@PathVariable Long articleId){
         ArticleDTO articleDTO = articleService.getArticleDtoById(articleId);
         //将文章内容由markdown转成html
         articleDTO.setContent(MarkdownToHtmlUtil.markdownToHtml( articleDTO.getContent()));
-        return articleDTO;
+        return RespUtil.success(articleDTO);
     }
 }

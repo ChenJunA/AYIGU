@@ -1,6 +1,7 @@
 package com.ayigu.blog.controller;
 
 import com.ayigu.blog.entity.Category;
+import com.ayigu.blog.util.RespUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -23,9 +24,9 @@ public class CategoryController extends BaseController{
     @ApiOperation("新增文章分类")
     @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
     @PostMapping("category")
-    public String insertCategory(@RequestBody Category category){
+    public RespUtil<Category> insertCategory(@RequestBody Category category){
         categoryService.insertCategory(category);
-        return null;
+        return RespUtil.success();
     }
 
     /**
@@ -37,9 +38,9 @@ public class CategoryController extends BaseController{
     @ApiOperation("删除分类")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")
     @DeleteMapping("categories/{categoryId}")
-    public String deleteCategory(@PathVariable Long categoryId){
+    public RespUtil<Category> deleteCategory(@PathVariable Long categoryId){
         categoryService.deleteCategory(categoryId);
-        return null;
+        return RespUtil.success();
     }
 
     /**
@@ -54,10 +55,10 @@ public class CategoryController extends BaseController{
             @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
     })
     @PutMapping("categories/{categoryId}")
-    public String updateCategory(@PathVariable Long categoryId, @RequestBody Category category){
+    public RespUtil<Category> updateCategory(@PathVariable Long categoryId, @RequestBody Category category){
         category.setId(categoryId);
         categoryService.updateCategory(category);
-        return null;
+        return RespUtil.success(category);
     }
 
     /**
@@ -67,8 +68,9 @@ public class CategoryController extends BaseController{
      */
     @ApiOperation("获取所有分类")
     @GetMapping("categories")
-    public List<Category> listAllCategory(){
-        return categoryService.listAllCategory();
+    public RespUtil<List<Category>> listAllCategory(){
+        List<Category> categories = categoryService.listAllCategory();
+        return RespUtil.success(categories);
     }
 
     /**
@@ -80,8 +82,8 @@ public class CategoryController extends BaseController{
     @ApiOperation("获取某一个分类信息")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")
     @GetMapping("categories/{categoryId}")
-    public String getCategory(@PathVariable Long categoryId){
-        categoryService.getCategoryById(categoryId);
-        return null;
+    public RespUtil<Category> getCategory(@PathVariable Long categoryId){
+        Category category = categoryService.getCategoryById(categoryId);
+        return RespUtil.success(category);
     }
 }
