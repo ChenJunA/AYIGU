@@ -34,4 +34,11 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentMapper.selectByExample(commentExample);
         return comments;
     }
+
+    @Override
+    public List<Comment> listAllComment() {
+        CommentExample commentExample = new CommentExample();
+        //查询全部，返回集合
+        return commentMapper.selectByExample(commentExample);
+    }
 }

@@ -24,7 +24,7 @@ public class CategoryController extends BaseController{
      */
     @ApiOperation("新增文章分类")
     @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
-    @PostMapping("category")
+    @PostMapping("admin/category")
     public RespUtil<Category> insertCategory(@RequestBody Category category){
         categoryService.insertCategory(category);
         return RespUtil.success();
@@ -38,7 +38,7 @@ public class CategoryController extends BaseController{
      */
     @ApiOperation("删除分类")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")
-    @DeleteMapping("categories/{categoryId}")
+    @DeleteMapping("admin/categories/{categoryId}")
     public RespUtil<Category> deleteCategory(@PathVariable Long categoryId){
         categoryService.deleteCategory(categoryId);
         return RespUtil.success();
@@ -55,7 +55,7 @@ public class CategoryController extends BaseController{
             @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
     })
-    @PutMapping("categories/{categoryId}")
+    @PutMapping("admin/categories/{categoryId}")
     public RespUtil<Category> updateCategory(@PathVariable Long categoryId, @RequestBody Category category){
         category.setId(categoryId);
         categoryService.updateCategory(category);

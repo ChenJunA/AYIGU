@@ -40,7 +40,7 @@ public class CommentController extends BaseController {
      */
     @ApiOperation("删除留言、评论")
     @ApiImplicitParam(name = "commentId", value = "评论ID", required = true, dataType = "Long", paramType = "path")
-    @DeleteMapping("comments/{commentId}")
+    @DeleteMapping("admin/comments/{commentId}")
     public RespUtil<Comment> deleteComment(@PathVariable Long commentId){
         commentService.deleteComment(commentId);
         return RespUtil.success();
@@ -57,6 +57,17 @@ public class CommentController extends BaseController {
     @GetMapping("comments/{articleId}")
     public RespUtil<List<Comment>> listCommentByArticleId(@PathVariable Long articleId){
         List<Comment> comments = commentService.listCommentByArticleId(articleId);
+        return RespUtil.success(comments);
+    }
+
+    /**
+     * 获取所有评论，留言
+     * @return 评论，留言列表
+     */
+    @ApiOperation("获取所有评论，留言")
+    @GetMapping("admin/comments")
+    public RespUtil<List<Comment>> listAllComment(){
+        List<Comment> comments = commentService.listAllComment();
         return RespUtil.success(comments);
     }
 }

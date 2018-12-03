@@ -31,4 +31,10 @@ public interface CommentService {
      * @return 评论信息
      */
     List<Comment> listCommentByArticleId(Long articleId);
+
+    /**
+     * 获取所有评论、留言
+     * @return 评论、留言列表
+     */
+    List<Comment> listAllComment();
 }

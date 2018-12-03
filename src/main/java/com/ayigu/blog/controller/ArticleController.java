@@ -25,7 +25,7 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("新增文章")
     @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
-    @PostMapping("article")
+    @PostMapping("admin/article")
     public RespUtil<ArticleDTO> insertArticle(@RequestBody ArticleDTO articleDTO){
         articleService.insetArticle(articleDTO);
         return RespUtil.success();
@@ -39,7 +39,7 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("删除文章")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long")
-    @DeleteMapping("articles/{articleId}")
+    @DeleteMapping("admin/articles/{articleId}")
     public RespUtil<ArticleDTO> deleteArticle(@PathVariable Long articleId){
         articleService.deleteArticle(articleId);
         return RespUtil.success();
@@ -57,7 +57,7 @@ public class ArticleController extends BaseController{
             @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long"),
             @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
     })
-    @PutMapping("articles/{articleId}")
+    @PutMapping("admin/articles/{articleId}")
     public RespUtil<ArticleDTO> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDTO articleDTO){
         articleDTO.setId(articleId);
         articleService.updateArticle(articleDTO);
