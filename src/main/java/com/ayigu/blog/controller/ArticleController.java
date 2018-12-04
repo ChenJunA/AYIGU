@@ -21,7 +21,7 @@ public class ArticleController extends BaseController{
      * 新增文章
      *
      * @param articleDTO 文章信息
-     * @return
+     * @return 状态信息
      */
     @ApiOperation("新增文章")
     @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
@@ -35,7 +35,7 @@ public class ArticleController extends BaseController{
      * 删除文章
      *
      * @param articleId 文章ID
-     * @return
+     * @return 状态信息
      */
     @ApiOperation("删除文章")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long")
@@ -50,7 +50,7 @@ public class ArticleController extends BaseController{
      *
      * @param articleId 文章ID
      * @param articleDTO 文章信息
-     * @return
+     * @return 状态信息
      */
     @ApiOperation("更新文章")
     @ApiImplicitParams({
@@ -94,7 +94,7 @@ public class ArticleController extends BaseController{
     /**
      * 获取最新的文章
      *
-     * @return
+     * @return 文章列表
      */
     @ApiOperation("获取最新文章")
     @GetMapping("articles/lastest")

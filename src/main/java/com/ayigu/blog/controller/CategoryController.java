@@ -20,7 +20,7 @@ public class CategoryController extends BaseController{
      * 新增文章分类
      *
      * @param category 分类信息
-     * @return null
+     * @return 状态信息
      */
     @ApiOperation("新增文章分类")
     @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
@@ -34,7 +34,7 @@ public class CategoryController extends BaseController{
      * 删除分类信息
      *
      * @param categoryId 分类ID
-     * @return null
+     * @return 状态信息
      */
     @ApiOperation("删除分类")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")
@@ -48,7 +48,7 @@ public class CategoryController extends BaseController{
      * 更新分类信息
      * @param categoryId 分类ID
      * @param category 分类信息
-     * @return null
+     * @return 状态信息
      */
     @ApiOperation("更新分类")
     @ApiImplicitParams({
@@ -78,7 +78,7 @@ public class CategoryController extends BaseController{
      * 获取某一个分类信息
      *
      * @param categoryId 分类ID
-     * @return null
+     * @return 状态信息
      */
     @ApiOperation("获取某一个分类信息")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")

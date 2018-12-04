@@ -36,7 +36,7 @@ public class CommentController extends BaseController {
      * 删除留言、评论
      *
      * @param commentId 留言、评论ID
-     * @return null
+     * @return 状态信息
      */
     @ApiOperation("删除留言、评论")
     @ApiImplicitParam(name = "commentId", value = "评论ID", required = true, dataType = "Long", paramType = "path")

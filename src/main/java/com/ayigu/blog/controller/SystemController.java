@@ -27,9 +27,10 @@ public class SystemController extends BaseController{
      *登录
      *
      * @param user 登录信息
-     * @param request
-     * @param response
-     * @throws Exception
+     * @param request 请求
+     * @param response 响应
+     * @throws Exception 异常
+     * @return 状态信息
      */
     @ApiOperation("管理员登录")
     @ApiImplicitParam(name = "user", value = "登录信息", required = true, dataType = "User")
@@ -54,7 +55,6 @@ public class SystemController extends BaseController{
     @ApiOperation("返回所有的日志信息")
     @GetMapping("admin/log")
     public RespUtil<List<Log>> listAllLog(){
-
         List<Log> logs = systemService.listAllLog();
         return RespUtil.success(logs);
     }

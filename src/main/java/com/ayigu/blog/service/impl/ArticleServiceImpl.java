@@ -61,8 +61,10 @@ public class ArticleServiceImpl implements ArticleService {
     public void deleteArticle(Long articleId) {
         //删除文章信息（delete属性置为true)
         Article article = articleMapper.selectByPrimaryKey(articleId);
-        article.setIsDelete(true);
-        articleMapper.updateByPrimaryKeySelective(article);
+        if(article != null){
+            article.setIsDelete(true);
+            articleMapper.updateByPrimaryKeySelective(article);
+        }
         //对应分类下文章数量-1
         Category category = categoryMapper.selectByPrimaryKey(article.getCategoryId());
         category.setNumber((byte) (category.getNumber() - 1));
