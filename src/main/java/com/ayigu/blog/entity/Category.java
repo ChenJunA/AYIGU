@@ -1,5 +1,7 @@
 package com.ayigu.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Category {
@@ -54,6 +56,7 @@ public class Category {
         this.id = id;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -62,6 +65,7 @@ public class Category {
         this.gmtCreate = gmtCreate;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getGmtModified() {
         return gmtModified;
     }

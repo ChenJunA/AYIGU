@@ -1,5 +1,7 @@
 package com.ayigu.blog.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -71,6 +73,7 @@ public class ArticleDTO {
         this.id = id;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -79,6 +82,7 @@ public class ArticleDTO {
         this.gmtCreate = gmtCreate;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getGmtModified() {
         return gmtModified;
     }
