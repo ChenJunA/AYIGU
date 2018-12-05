@@ -10,6 +10,7 @@ import com.ayigu.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -171,12 +172,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleDTO> listByCategoryId(Long categoryId) {
         List<ArticleDTO> articleDTOs = listAll();
+
+        List<ArticleDTO> temp = new ArrayList<>(articleDTOs);
         for(ArticleDTO articleDTO : articleDTOs){
             if(articleDTO.getCategoryId() != categoryId){
-                articleDTOs.remove(articleDTO);
+                temp.remove(articleDTO);
             }
         }
-        return articleDTOs;
+        return temp;
     }
 
     @Override
