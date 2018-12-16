@@ -17,7 +17,7 @@ CREATE TABLE `blog_category` (
   `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `name` varchar(20) NOT NULL COMMENT '分类名称',
   `number` tinyint(10) NOT NULL DEFAULT '0' COMMENT '分类下的文章数量',
-  `is_delete` tinyint(1 UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除，默认为0未删除，1为已删除',
+  `is_delete` tinyint(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否删除，默认为0未删除，1为已删除',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
