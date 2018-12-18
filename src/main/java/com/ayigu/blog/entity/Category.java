@@ -13,11 +13,13 @@ public class Category {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date gmtCreate;
 
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date gmtModified;
 
     /**
@@ -56,7 +58,6 @@ public class Category {
         this.id = id;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getGmtCreate() {
         return gmtCreate;
     }
@@ -65,7 +66,6 @@ public class Category {
         this.gmtCreate = gmtCreate;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getGmtModified() {
         return gmtModified;
     }

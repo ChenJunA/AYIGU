@@ -25,7 +25,7 @@ public class CommentController extends BaseController {
     @ApiOperation("新增留言、评论")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long", paramType = "path")
     @PostMapping("comment/{articleId}")
-    public RespUtil<Comment> insertComment(@PathVariable Long articleId, @RequestBody Comment comment, HttpServletRequest request){
+    public RespUtil<Comment> insertComment(@PathVariable Long articleId, @RequestBody Comment comment, HttpServletRequest request) throws Exception {
         comment.setArticleId(articleId);
         comment.setIp(request.getRemoteAddr());
         commentService.insertComment(comment);
@@ -41,7 +41,7 @@ public class CommentController extends BaseController {
     @ApiOperation("删除留言、评论")
     @ApiImplicitParam(name = "commentId", value = "评论ID", required = true, dataType = "Long", paramType = "path")
     @DeleteMapping("admin/comments/{commentId}")
-    public RespUtil<Comment> deleteComment(@PathVariable Long commentId){
+    public RespUtil<Comment> deleteComment(@PathVariable Long commentId) throws Exception {
         commentService.deleteComment(commentId);
         return RespUtil.success();
     }
@@ -55,7 +55,7 @@ public class CommentController extends BaseController {
     @ApiOperation("获取文章评论，留言")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long", paramType = "path")
     @GetMapping("comments/{articleId}")
-    public RespUtil<List<Comment>> listCommentByArticleId(@PathVariable Long articleId){
+    public RespUtil<List<Comment>> listCommentByArticleId(@PathVariable Long articleId) throws Exception {
         List<Comment> comments = commentService.listCommentByArticleId(articleId);
         return RespUtil.success(comments);
     }
@@ -66,7 +66,7 @@ public class CommentController extends BaseController {
      */
     @ApiOperation("获取所有评论，留言")
     @GetMapping("admin/comments")
-    public RespUtil<List<Comment>> listAllComment(){
+    public RespUtil<List<Comment>> listAllComment() throws Exception {
         List<Comment> comments = commentService.listAllComment();
         return RespUtil.success(comments);
     }

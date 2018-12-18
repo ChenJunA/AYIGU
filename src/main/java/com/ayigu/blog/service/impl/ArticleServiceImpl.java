@@ -2,6 +2,8 @@ package com.ayigu.blog.service.impl;
 
 import com.ayigu.blog.dto.ArticleDTO;
 import com.ayigu.blog.entity.*;
+import com.ayigu.blog.enums.StatusCode;
+import com.ayigu.blog.exception.MyException;
 import com.ayigu.blog.mapper.ArticleMapper;
 import com.ayigu.blog.mapper.CategoryMapper;
 import com.ayigu.blog.mapper.ContentMapper;
@@ -28,7 +30,7 @@ public class ArticleServiceImpl implements ArticleService {
     public static final int LASTEST_ARTICLE_COUNT = 5;
 
     @Override
-    public void insetArticle(ArticleDTO articleDTO) {
+    public void insetArticle(ArticleDTO articleDTO) throws Exception {
         //数据插入blog_article
         Article article = new Article();
         article.setTitle(articleDTO.getTitle());
@@ -59,13 +61,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void deleteArticle(Long articleId) {
+    public void deleteArticle(Long articleId) throws Exception {
         //删除文章信息（delete属性置为true)
         Article article = articleMapper.selectByPrimaryKey(articleId);
-        if(article != null){
-            article.setIsDelete(true);
-            articleMapper.updateByPrimaryKeySelective(article);
+        if(article == null){
+            throw new MyException(StatusCode.CONTENT_ERROR);
         }
+        article.setIsDelete(true);
+        articleMapper.updateByPrimaryKeySelective(article);
         //对应分类下文章数量-1
         Category category = categoryMapper.selectByPrimaryKey(article.getCategoryId());
         category.setNumber((byte) (category.getNumber() - 1));
@@ -74,10 +77,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void updateArticle(ArticleDTO articleDTO) {
+    public void updateArticle(ArticleDTO articleDTO) throws Exception {
         //获取文章
         Article article = articleMapper.selectByPrimaryKey(articleDTO.getId());
-
+        if(article == null){
+            throw new MyException(StatusCode.CONTENT_ERROR);
+        }
         //更新blog_article
         article.setTitle(articleDTO.getTitle());
         article.setSummary(articleDTO.getSummary());
@@ -117,10 +122,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDTO getArticleDtoById(Long articleId) {
+    public ArticleDTO getArticleDtoById(Long articleId) throws Exception {
         ArticleDTO articleDTO = new ArticleDTO();
 
         Article article = articleMapper.selectByPrimaryKey(articleId);
+        if(article == null){
+            throw new MyException(StatusCode.CONTENT_ERROR);
+        }
         articleDTO.setId(article.getId());
         articleDTO.setTitle(article.getTitle());
         articleDTO.setSummary(article.getSummary());
@@ -150,7 +158,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> listAll() {
+    public List<ArticleDTO> listAll() throws Exception {
         //获取所有文章
         ArticleExample articleExample = new ArticleExample();
         articleExample.setOrderByClause("id asc");
@@ -170,7 +178,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> listByCategoryId(Long categoryId) {
+    public List<ArticleDTO> listByCategoryId(Long categoryId) throws Exception {
         List<ArticleDTO> articleDTOs = listAll();
 
         List<ArticleDTO> temp = new ArrayList<>(articleDTOs);
@@ -183,7 +191,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDTO> listLastest() {
+    public List<ArticleDTO> listLastest() throws Exception {
         //获取所有文章
         List<ArticleDTO> articleDTOs = listAll();
         //判断是否大于五篇
@@ -195,7 +203,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleDTOs;
     }
 
-    private Long getLastestArticleId() {
+    private Long getLastestArticleId() throws Exception {
         //因为文章ID自增，降序排序取第一个即为新增的文章
         ArticleExample articleExample = new ArticleExample();
         articleExample.setOrderByClause("id desc");

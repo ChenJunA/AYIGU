@@ -15,21 +15,21 @@ public interface CategoryService {
      *
      * @param category 分类信息
      */
-    void insertCategory(Category category);
+    void insertCategory(Category category) throws Exception;
 
     /**
      * 删除分类
      *
      * @param categoryId 分类ID
      */
-    void deleteCategory(Long categoryId);
+    void deleteCategory(Long categoryId) throws Exception;
 
     /**
      * 跟新分类
      *
      * @param category 分类信息
      */
-    void updateCategory(Category category);
+    void updateCategory(Category category) throws Exception;
 
     /**
      * 获取对应ID的分类
@@ -37,11 +37,11 @@ public interface CategoryService {
      * @param categoryId 分类ID
      * @return 分类信息
      */
-    Category getCategoryById(Long categoryId);
+    Category getCategoryById(Long categoryId) throws Exception;
 
     /**
      * 获取所有分类信息
      * @return 分类信息
      */
-    List<Category> listAllCategory();
+    List<Category> listAllCategory() throws Exception;
 }

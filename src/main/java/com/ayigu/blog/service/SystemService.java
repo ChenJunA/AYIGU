@@ -13,19 +13,19 @@ public interface SystemService {
      *
      * @param log 日志信息
      */
-    void insertLog(Log log);
+    void insertLog(Log log) throws Exception;
 
     /**
      * 返回日志记录数量
      *
      * @return 日志记录数量
      */
-    int countLog();
+    int countLog() throws Exception;
 
     /**
      * 获取所有日志记录
      *
      * @return 日志记录
      */
-    List<Log> listAllLog();
+    List<Log> listAllLog() throws Exception;
 }

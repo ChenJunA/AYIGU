@@ -11,6 +11,10 @@
 	<name>blog</name>
 	<description>Personal Blog</description>
 
+	<!-- 配置Spring Boot父级依赖
+		提供相关的Maven默认依赖
+		常用包可以省去version标签
+	-->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

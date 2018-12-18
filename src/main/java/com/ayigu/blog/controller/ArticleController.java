@@ -26,7 +26,7 @@ public class ArticleController extends BaseController{
     @ApiOperation("新增文章")
     @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
     @PostMapping("admin/article")
-    public RespUtil<ArticleDTO> insertArticle(@RequestBody ArticleDTO articleDTO){
+    public RespUtil<ArticleDTO> insertArticle(@RequestBody ArticleDTO articleDTO) throws Exception {
         articleService.insetArticle(articleDTO);
         return RespUtil.success();
     }
@@ -40,7 +40,7 @@ public class ArticleController extends BaseController{
     @ApiOperation("删除文章")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long")
     @DeleteMapping("admin/articles/{articleId}")
-    public RespUtil<ArticleDTO> deleteArticle(@PathVariable Long articleId){
+    public RespUtil<ArticleDTO> deleteArticle(@PathVariable Long articleId) throws Exception {
         articleService.deleteArticle(articleId);
         return RespUtil.success();
     }
@@ -58,7 +58,7 @@ public class ArticleController extends BaseController{
             @ApiImplicitParam(name = "articleDTO", value = "文章信息", required = true, dataType = "ArticleDTO")
     })
     @PutMapping("admin/articles/{articleId}")
-    public RespUtil<ArticleDTO> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDTO articleDTO){
+    public RespUtil<ArticleDTO> updateArticle(@PathVariable Long articleId, @RequestBody ArticleDTO articleDTO) throws Exception {
         articleDTO.setId(articleId);
         articleService.updateArticle(articleDTO);
         return RespUtil.success();
@@ -71,7 +71,7 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("获取所有文章")
     @GetMapping("articles")
-    public RespUtil<List<ArticleDTO>> listAll(){
+    public RespUtil<List<ArticleDTO>> listAll() throws Exception {
         List<ArticleDTO> articleDTOS = articleService.listAll();
         return RespUtil.success(articleDTOS);
     }
@@ -85,7 +85,7 @@ public class ArticleController extends BaseController{
     @ApiOperation("")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long", paramType = "path")
     @GetMapping("articles/categories/{categoryId}")
-    public RespUtil<List<ArticleDTO>> listByCategoryId(@PathVariable Long categoryId){
+    public RespUtil<List<ArticleDTO>> listByCategoryId(@PathVariable Long categoryId) throws Exception {
         List<ArticleDTO> articleDTOS = articleService.listByCategoryId(categoryId);
         return RespUtil.success(articleDTOS);
 
@@ -98,7 +98,7 @@ public class ArticleController extends BaseController{
      */
     @ApiOperation("获取最新文章")
     @GetMapping("articles/lastest")
-    public RespUtil<List<ArticleDTO>> listLastest(){
+    public RespUtil<List<ArticleDTO>> listLastest() throws Exception {
         List<ArticleDTO> articleDTOS = articleService.listLastest();
         return RespUtil.success(articleDTOS);
     }
@@ -112,7 +112,7 @@ public class ArticleController extends BaseController{
     @ApiOperation("根据文章ID获取文章详细信息")
     @ApiImplicitParam(name = "articleId", value = "文章ID", required = true, dataType = "Long", paramType = "path")
     @GetMapping("articles/{articleId}")
-    public RespUtil<ArticleDTO> getArticleDtoById(@PathVariable Long articleId){
+    public RespUtil<ArticleDTO> getArticleDtoById(@PathVariable Long articleId) throws Exception {
         ArticleDTO articleDTO = articleService.getArticleDtoById(articleId);
         //将文章内容由markdown转成html
         articleDTO.setContent(MarkdownToHtmlUtil.markdownToHtml( articleDTO.getContent()));

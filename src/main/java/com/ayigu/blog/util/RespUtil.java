@@ -1,6 +1,7 @@
 package com.ayigu.blog.util;
 
 import com.ayigu.blog.enums.StatusCode;
+import io.swagger.models.auth.In;
 import org.springframework.http.HttpStatus;
 
 import java.util.Map;
@@ -11,11 +12,10 @@ import java.util.Map;
  * @Date: 2018/12/3 13:49
  */
 public class RespUtil<T> {
-    private final static String SUCCESS_CODE = "200";
     /**
      * 返回状态码
      */
-    private String status;
+    private Integer status;
 
     /**
      * 返回消息
@@ -33,11 +33,11 @@ public class RespUtil<T> {
     private Map<String,Object> extra;
 
     //Getter and Setter
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -67,32 +67,32 @@ public class RespUtil<T> {
 
     //构造函数
     public RespUtil() {
-        this.status = SUCCESS_CODE;
-        this.message = "SUCCESS";
+        this.status = StatusCode.SUCCESS_CODE.getCode();
+        this.message = StatusCode.SUCCESS_CODE.getMessage();
     }
 
-    public RespUtil(String status) {
+    public RespUtil(Integer status) {
         this.status = status;
     }
 
-    public RespUtil(String status, String message) {
+    public RespUtil(Integer status, String message) {
         this.status = status;
         this.message = message;
     }
 
-    public RespUtil(String status, String message, T data) {
+    public RespUtil(Integer status, String message, T data) {
         this.status = status;
         this.message = message;
         this.data = data;
     }
 
-    public RespUtil(String status, String message, Map<String, Object> extra) {
+    public RespUtil(Integer status, String message, Map<String, Object> extra) {
         this.status = status;
         this.message = message;
         this.extra = extra;
     }
 
-    public RespUtil(String status, String message, T data, Map<String, Object> extra) {
+    public RespUtil(Integer status, String message, T data, Map<String, Object> extra) {
         this.status = status;
         this.message = message;
         this.data = data;
@@ -119,6 +119,10 @@ public class RespUtil<T> {
     //返回失败,默认ErrorCode.SYSTEM_ERROR
     public static <T> RespUtil fail(){
         return new RespUtil<T>(StatusCode.SYSTEM_ERROR.getCode(), StatusCode.SYSTEM_ERROR.getMessage());
+    }
+
+    public static <T> RespUtil fail(Integer status, String message){
+        return new RespUtil<T>(status, message);
     }
 
     public static <T> RespUtil fail(T data){
@@ -151,36 +155,36 @@ public class RespUtil<T> {
     }
 
     //返回自定义状态码
-    public static <T> RespUtil result(String status, String message){
+    public static <T> RespUtil result(Integer status, String message){
         return new RespUtil<T>(status, message);
     }
 
-    public static <T> RespUtil result(String status, String message, T data){
+    public static <T> RespUtil result(Integer status, String message, T data){
         return new RespUtil<T>(status, message, data);
     }
 
-    public static <T> RespUtil result(String status, String message, Map<String, Object> extra){
+    public static <T> RespUtil result(Integer status, String message, Map<String, Object> extra){
         return new RespUtil<T>(status, message, extra);
     }
 
-    public static <T> RespUtil result(String status, String message,T data, Map<String,Object> extra){
+    public static <T> RespUtil result(Integer status, String message,T data, Map<String,Object> extra){
         return new RespUtil<T>(status, message, data, extra);
     }
 
     //返回Http状态
     public static <T> RespUtil httpStatus(HttpStatus httpStatus){
-        return new RespUtil(httpStatus.toString(), httpStatus.getReasonPhrase());
+        return new RespUtil(httpStatus.value(), httpStatus.getReasonPhrase());
     }
 
     public static <T> RespUtil httpStatus(HttpStatus httpStatus, T data){
-        return new RespUtil(httpStatus.toString(), httpStatus.getReasonPhrase(), data);
+        return new RespUtil(httpStatus.value(), httpStatus.getReasonPhrase(), data);
     }
 
     public static <T> RespUtil httpStatus(HttpStatus httpStatus, Map<String, Object> extra){
-        return new RespUtil(httpStatus.toString(), httpStatus.getReasonPhrase(), extra);
+        return new RespUtil(httpStatus.value(), httpStatus.getReasonPhrase(), extra);
     }
 
     public static <T> RespUtil httpStatus(HttpStatus httpStatus, T data, Map<String, Object> extra){
-        return new RespUtil(httpStatus.toString(), httpStatus.getReasonPhrase(), extra);
+        return new RespUtil(httpStatus.value(), httpStatus.getReasonPhrase(), extra);
     }
 }

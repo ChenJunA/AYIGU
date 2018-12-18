@@ -54,7 +54,7 @@ public class SystemController extends BaseController{
      */
     @ApiOperation("返回所有的日志信息")
     @GetMapping("admin/log")
-    public RespUtil<List<Log>> listAllLog(){
+    public RespUtil<List<Log>> listAllLog() throws Exception {
         List<Log> logs = systemService.listAllLog();
         return RespUtil.success(logs);
     }

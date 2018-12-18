@@ -25,7 +25,7 @@ public class CategoryController extends BaseController{
     @ApiOperation("新增文章分类")
     @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
     @PostMapping("admin/category")
-    public RespUtil<Category> insertCategory(@RequestBody Category category){
+    public RespUtil<Category> insertCategory(@RequestBody Category category) throws Exception {
         categoryService.insertCategory(category);
         return RespUtil.success();
     }
@@ -39,7 +39,7 @@ public class CategoryController extends BaseController{
     @ApiOperation("删除分类")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")
     @DeleteMapping("admin/categories/{categoryId}")
-    public RespUtil<Category> deleteCategory(@PathVariable Long categoryId){
+    public RespUtil<Category> deleteCategory(@PathVariable Long categoryId) throws Exception {
         categoryService.deleteCategory(categoryId);
         return RespUtil.success();
     }
@@ -56,7 +56,7 @@ public class CategoryController extends BaseController{
             @ApiImplicitParam(name = "category", value = "分类信息", required = true, dataType = "Category")
     })
     @PutMapping("admin/categories/{categoryId}")
-    public RespUtil<Category> updateCategory(@PathVariable Long categoryId, @RequestBody Category category){
+    public RespUtil<Category> updateCategory(@PathVariable Long categoryId, @RequestBody Category category) throws Exception {
         category.setId(categoryId);
         categoryService.updateCategory(category);
         return RespUtil.success(category);
@@ -69,7 +69,7 @@ public class CategoryController extends BaseController{
      */
     @ApiOperation("获取所有分类")
     @GetMapping("categories")
-    public RespUtil<List<Category>> listAllCategory(){
+    public RespUtil<List<Category>> listAllCategory() throws Exception {
         List<Category> categories = categoryService.listAllCategory();
         return RespUtil.success(categories);
     }
@@ -83,7 +83,7 @@ public class CategoryController extends BaseController{
     @ApiOperation("获取某一个分类信息")
     @ApiImplicitParam(name = "categoryId", value = "分类ID", required = true, dataType = "Long")
     @GetMapping("categories/{categoryId}")
-    public RespUtil<Category> getCategory(@PathVariable Long categoryId){
+    public RespUtil<Category> getCategory(@PathVariable Long categoryId) throws Exception {
         Category category = categoryService.getCategoryById(categoryId);
         return RespUtil.success(category);
     }

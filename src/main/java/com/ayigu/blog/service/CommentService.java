@@ -15,14 +15,14 @@ public interface CommentService {
      *
      * @param comment 留言、评论信息
      */
-    void insertComment(Comment comment);
+    void insertComment(Comment comment) throws Exception;
 
     /**
      * 删除留言、评论
      *
      * @param commentId 留言、评论ID
      */
-    void deleteComment(Long commentId);
+    void deleteComment(Long commentId) throws Exception;
 
     /**
      * 获取对应文章下的所有评论
@@ -30,11 +30,11 @@ public interface CommentService {
      * @param articleId 文章ID
      * @return 评论信息
      */
-    List<Comment> listCommentByArticleId(Long articleId);
+    List<Comment> listCommentByArticleId(Long articleId) throws Exception;
 
     /**
      * 获取所有评论、留言
      * @return 评论、留言列表
      */
-    List<Comment> listAllComment();
+    List<Comment> listAllComment() throws Exception;
 }

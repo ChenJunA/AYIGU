@@ -1,6 +1,8 @@
 package com.ayigu.blog.service.impl;
 
 import com.ayigu.blog.entity.*;
+import com.ayigu.blog.enums.StatusCode;
+import com.ayigu.blog.exception.MyException;
 import com.ayigu.blog.mapper.ArticleMapper;
 import com.ayigu.blog.mapper.CategoryMapper;
 import com.ayigu.blog.mapper.CommentMapper;
@@ -20,12 +22,12 @@ public class CategoryServiceImpl implements CategoryService {
     CommentMapper commentMapper;
 
     @Override
-    public void insertCategory(Category category) {
+    public void insertCategory(Category category) throws Exception {
         categoryMapper.insertSelective(category);
     }
 
     @Override
-    public void deleteCategory(Long categoryId) {
+    public void deleteCategory(Long categoryId) throws Exception {
         //删除分类下文章（将delete属性置为true）
         ArticleExample articleExample = new ArticleExample();
         ArticleExample.Criteria articleCriteria = articleExample.createCriteria();
@@ -48,22 +50,29 @@ public class CategoryServiceImpl implements CategoryService {
 
         //删除该分类（将delete属性置为true）
         Category category = categoryMapper.selectByPrimaryKey(categoryId);
+        if(category == null){
+            throw new MyException(StatusCode.CONTENT_ERROR);
+        }
         category.setIsDelete(true);
         categoryMapper.updateByPrimaryKeySelective(category);
     }
 
     @Override
-    public void updateCategory(Category category) {
+    public void updateCategory(Category category) throws Exception {
         categoryMapper.updateByPrimaryKeySelective(category);
     }
 
     @Override
-    public Category getCategoryById(Long categoryId) {
-        return categoryMapper.selectByPrimaryKey(categoryId);
+    public Category getCategoryById(Long categoryId) throws Exception {
+        Category category = categoryMapper.selectByPrimaryKey(categoryId);
+        if (category == null){
+            throw new MyException(StatusCode.CONTENT_ERROR);
+        }
+        return category;
     }
 
     @Override
-    public List<Category> listAllCategory() {
+    public List<Category> listAllCategory() throws Exception {
         CategoryExample categoryExample = new CategoryExample();
         //查询全部，返回集合
         return categoryMapper.selectByExample(categoryExample);
