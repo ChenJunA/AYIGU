@@ -41,20 +41,18 @@ public class ArticleServiceImpl implements ArticleService {
         article.setIsTop(articleDTO.getTop());
         articleMapper.insertSelective(article);
 
-        int i = 1/0;
-
-        //获取文章ID
-        Long articleId = getLastestArticleId();
+        //获取新增文章ID，useGeneratedKeys="true"可以将生成id回填到对象中
+        //Long articleId = getLastestArticleId();
 
         //数据插入blog_content
         Content content = new Content();
         content.setContent(articleDTO.getContent());
-        content.setArticleId(articleId);
+        content.setArticleId(article.getId());
         contentMapper.insertSelective(content);
 
         //数据插入blog_picture
         Picture picture = new Picture();
-        picture.setArticleId(articleId);
+        picture.setArticleId(article.getId());
         picture.setPictureUrl(articleDTO.getPictureUrl());
         pictureMapper.insertSelective(picture);
 
