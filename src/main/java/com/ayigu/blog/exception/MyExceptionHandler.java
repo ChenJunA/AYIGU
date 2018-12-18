@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @Author: chenjun
  * @Date: 2018/12/17 21:45
  */
+/*
+    @ControllerAdvice是一个@Component，用于定义@ExceptionHandler，@InitBinder和@ModelAttribute方法，适用于所有使用@RequestMapping方法。
+    把@ControllerAdvice注解内部使用@ExceptionHandler、@InitBinder、@ModelAttribute注解的方法应用到所有的 @RequestMapping注解的方法。
+*/
 @ControllerAdvice
 public class MyExceptionHandler {
     private final static Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);

@@ -11,12 +11,14 @@ import com.ayigu.blog.mapper.PictureMapper;
 import com.ayigu.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     ArticleMapper articleMapper;
@@ -38,6 +40,8 @@ public class ArticleServiceImpl implements ArticleService {
         article.setCategoryId(articleDTO.getCategoryId());
         article.setIsTop(articleDTO.getTop());
         articleMapper.insertSelective(article);
+
+        int i = 1/0;
 
         //获取文章ID
         Long articleId = getLastestArticleId();
