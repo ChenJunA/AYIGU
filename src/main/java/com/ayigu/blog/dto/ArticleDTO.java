@@ -2,6 +2,7 @@ package com.ayigu.blog.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * @Author: chenjun
  * @Date: 2018/11/29 16:28
  */
-public class ArticleDTO {
+public class ArticleDTO implements Serializable{
     /**
      * 文章ID
      */

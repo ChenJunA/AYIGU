@@ -9,6 +9,7 @@ import com.ayigu.blog.mapper.CategoryMapper;
 import com.ayigu.blog.mapper.ContentMapper;
 import com.ayigu.blog.mapper.PictureMapper;
 import com.ayigu.blog.service.ArticleService;
+import com.ayigu.blog.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,8 @@ public class ArticleServiceImpl implements ArticleService {
     PictureMapper pictureMapper;
     @Autowired
     CategoryMapper categoryMapper;
+    @Autowired
+    RedisUtil redisUtil;
 
     public static final int LASTEST_ARTICLE_COUNT = 5;
 
@@ -64,6 +67,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void deleteArticle(Long articleId) throws Exception {
+        //删除文章时，如果Redis缓存中有要一并删除
+        if (redisUtil.hHasKey("ArticleDTO", articleId.toString())) {
+            redisUtil.hdel("ArticleDTO", articleId.toString());
+        }
+
         //删除文章信息（delete属性置为true)
         Article article = articleMapper.selectByPrimaryKey(articleId);
         if(article == null){
@@ -80,6 +88,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void updateArticle(ArticleDTO articleDTO) throws Exception {
+        //更新文章时，删除Redis中的缓存，避免查询结果出错
+        if (redisUtil.hHasKey("ArticleDTO", articleDTO.getId().toString())) {
+            redisUtil.hdel("ArticleDTO", articleDTO.toString());
+        }
+
         //获取文章
         Article article = articleMapper.selectByPrimaryKey(articleDTO.getId());
         if(article == null){
@@ -125,38 +138,47 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDTO getArticleDtoById(Long articleId) throws Exception {
-        ArticleDTO articleDTO = new ArticleDTO();
+        //Redis中是否有缓存，有缓存直接返回
+        if (redisUtil.hHasKey("ArticleDTO", articleId.toString())) {
+            ArticleDTO hget = (ArticleDTO) redisUtil.hget("ArticleDTO", articleId.toString());
+            return hget;
+        } else {
+            ArticleDTO articleDTO = new ArticleDTO();
 
-        Article article = articleMapper.selectByPrimaryKey(articleId);
-        if(article == null){
-            throw new MyException(StatusCode.CONTENT_ERROR);
+            Article article = articleMapper.selectByPrimaryKey(articleId);
+            if(article == null){
+                throw new MyException(StatusCode.CONTENT_ERROR);
+            }
+            articleDTO.setId(article.getId());
+            articleDTO.setTitle(article.getTitle());
+            articleDTO.setSummary(article.getSummary());
+            articleDTO.setGmtCreate(article.getGmtCreate());
+            articleDTO.setGmtModified(article.getGmtModified());
+            articleDTO.setCategoryId(article.getCategoryId());
+            articleDTO.setDelete(article.getIsDelete());
+            articleDTO.setTop(article.getIsTop());
+            articleDTO.setPageView(article.getPageView());
+
+            ContentExample contentExample = new ContentExample();
+            ContentExample.Criteria contentCriteria = contentExample.createCriteria();
+            contentCriteria.andArticleIdEqualTo(articleDTO.getId());
+            //检索text文件时需要使用selectByExampleWithBLOBs
+            List<Content> contents = contentMapper.selectByExampleWithBLOBs(contentExample);
+            Content content = contents.get(0);
+            articleDTO.setContent(content.getContent());
+
+            PictureExample pictureExample = new PictureExample();
+            PictureExample.Criteria criteria = pictureExample.createCriteria();
+            criteria.andArticleIdEqualTo(articleDTO.getId());
+            List<Picture> pictures = pictureMapper.selectByExample(pictureExample);
+            Picture picture = pictures.get(0);
+            articleDTO.setPictureUrl(picture.getPictureUrl());
+
+            //将数据库中查询到的结果写入Redis
+            redisUtil.hset("ArticleDTO", articleId.toString(), articleDTO);
+
+            return articleDTO;
         }
-        articleDTO.setId(article.getId());
-        articleDTO.setTitle(article.getTitle());
-        articleDTO.setSummary(article.getSummary());
-        articleDTO.setGmtCreate(article.getGmtCreate());
-        articleDTO.setGmtModified(article.getGmtModified());
-        articleDTO.setCategoryId(article.getCategoryId());
-        articleDTO.setDelete(article.getIsDelete());
-        articleDTO.setTop(article.getIsTop());
-        articleDTO.setPageView(article.getPageView());
-
-        ContentExample contentExample = new ContentExample();
-        ContentExample.Criteria contentCriteria = contentExample.createCriteria();
-        contentCriteria.andArticleIdEqualTo(articleDTO.getId());
-        //检索text文件时需要使用selectByExampleWithBLOBs
-        List<Content> contents = contentMapper.selectByExampleWithBLOBs(contentExample);
-        Content content = contents.get(0);
-        articleDTO.setContent(content.getContent());
-
-        PictureExample pictureExample = new PictureExample();
-        PictureExample.Criteria criteria = pictureExample.createCriteria();
-        criteria.andArticleIdEqualTo(articleDTO.getId());
-        List<Picture> pictures = pictureMapper.selectByExample(pictureExample);
-        Picture picture = pictures.get(0);
-        articleDTO.setPictureUrl(picture.getPictureUrl());
-
-        return articleDTO;
     }
 
     @Override
