@@ -207,7 +207,7 @@ public class ArticleServiceImpl implements ArticleService {
 
         List<ArticleDTO> temp = new ArrayList<>(articleDTOs);
         for(ArticleDTO articleDTO : articleDTOs){
-            if(articleDTO.getCategoryId() != categoryId){
+            if(!articleDTO.getCategoryId().equals(categoryId)){
                 temp.remove(articleDTO);
             }
         }
