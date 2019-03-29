@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
- * @Description: 同一异常处理
+ * @Description: 统一异常处理
  * @Author: chenjun
  * @Date: 2018/12/17 21:45
  */
